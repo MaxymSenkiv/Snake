@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class SnakeMovement3d : MonoBehaviour
 {
@@ -11,6 +11,8 @@ public class SnakeMovement3d : MonoBehaviour
 
     private List<Transform> _segments = new List<Transform>();
 
+    private bool _directed = false;
+
     private void Start()
     {
         ResetState();
@@ -18,27 +20,30 @@ public class SnakeMovement3d : MonoBehaviour
 
     private void Update()
     {
-        if (this._direction.x != 0)
+        if (this._direction.x != 0 && !_directed)
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
                 _direction = Vector3.up;
+                _directed = true;
             }
             else if (Input.GetKeyDown(KeyCode.S))
             {
                 _direction = Vector3.down;
+                _directed = true;
             }
         }
-
-        if (this._direction.y != 0)
+        else if (this._direction.y != 0 && !_directed)
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
                 _direction = Vector3.left;
+                _directed = true;
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
                 _direction = Vector3.right;
+                _directed = true;
             }
         }
     }
@@ -55,18 +60,22 @@ public class SnakeMovement3d : MonoBehaviour
             Mathf.Round(this.transform.position.y) + _direction.y,
             0.0f
         );
+
+        _directed = false;
     }
 
     private void Grow()
     {
         Transform segment = Instantiate(this._segmentPrefab);
         segment.position = _segments[_segments.Count - 1].position;
-
+        
         _segments.Add(segment);
     }
 
     private void ResetState()
     {
+        this._direction = Vector3.right;
+
         for (int i = 1; i < _segments.Count; i++)
         {
             Destroy(_segments[i].gameObject);
@@ -74,7 +83,6 @@ public class SnakeMovement3d : MonoBehaviour
 
         _segments.Clear();
         _segments.Add(this.transform);
-
         for (int i = 1; i < this._initialSize; i++)
         {
             _segments.Add(Instantiate(this._segmentPrefab));

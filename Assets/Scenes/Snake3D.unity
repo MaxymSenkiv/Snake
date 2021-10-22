@@ -715,8 +715,8 @@ GameObject:
   - component: {fileID: 789694286}
   - component: {fileID: 789694285}
   - component: {fileID: 789694284}
-  - component: {fileID: 789694283}
   - component: {fileID: 789694288}
+  - component: {fileID: 789694283}
   m_Layer: 0
   m_Name: Snake
   m_TagString: Player
@@ -739,6 +739,7 @@ MonoBehaviour:
   _initialSize: 4
   _segmentPrefab: {fileID: 6507744054704624215, guid: f99e289d33605c646aa8668069ee1d76,
     type: 3}
+  _directed: 0
 --- !u!65 &789694284
 BoxCollider:
   m_ObjectHideFlags: 0

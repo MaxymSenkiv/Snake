@@ -20,9 +20,9 @@ public class SnakeMovement2D : MonoBehaviour
 
     private void Update()
     {
-        if (this._direction.x != 0)
+        if (this._direction.x != 0 && !_directed)
         {
-            if (Input.GetKeyDown(KeyCode.W) && !_directed)
+            if (Input.GetKeyDown(KeyCode.W))
             {
                 _direction = Vector2.up;
                 _directed = true;
